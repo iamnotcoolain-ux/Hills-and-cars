@@ -1,15 +1,544 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hills & Peaks</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: Arial, sans-serif; background: #0f172a; color: white; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hills & Peaks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669'
+            },
+            slate: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Arial, sans-serif; }
+    .glass {
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tab-hidden { display: none !important; }
+  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
-    <h1 class="text-4xl font-bold">Hills & Peaks</h1>
+<body class="bg-slate-950 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 text-xl font-black">
+          <i class="fa-solid fa-mountain"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-black tracking-wide uppercase">Hills<span class="text-emerald-400">&</span>Peaks</div>
+          <div class="text-[10px] uppercase tracking-[0.22em] text-slate-400">Alpine & Trail Guide</div>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-2">
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-emerald-400 bg-slate-800/80" data-tab="home">Explore</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="directory">Peaks</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="route">Route Planner</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="gear">Gear Guide</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="log">Trail Log</button>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="hidden sm:inline-flex items-center space-x-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-4 py-2 rounded-lg transition">
+          <i class="fa-solid fa-trophy"></i>
+          <span>Logbook</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <section id="tab-home" class="tab-panel space-y-10">
+      <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 p-8 sm:p-12 lg:p-16">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="relative z-10 max-w-3xl space-y-6">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-[0.16em]">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Summit Adventure Engine</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+            Conquer Heights.<br />
+            <span class="bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent">Log Every Elevation.</span>
+          </h1>
+
+          <p class="max-w-2xl text-slate-300 text-lg leading-relaxed">
+            Your ultimate companion for mountain exploration, peak bagging, route planning, safety checks, and expedition gear tracking.
+          </p>
+
+          <div class="pt-4 flex flex-col sm:flex-row gap-3 max-w-xl">
+            <input type="text" placeholder="Search Matterhorn, Mont Blanc, Denali..." class="flex-1 px-4 py-3.5 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500" />
+            <button class="px-6 py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-600 transition">Find Peaks</button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800">
+            <div>
+              <div class="text-2xl font-black">12,450+</div>
+              <div class="text-xs text-slate-400">Mapped Peaks</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-emerald-400">4,820m</div>
+              <div class="text-xs text-slate-400">Max Elevation</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black">100%</div>
+              <div class="text-xs text-slate-400">Interactive Profiles</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-emerald-400">24/7</div>
+              <div class="text-xs text-slate-400">Live Conditions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="glass rounded-2xl p-6 space-y-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </div>
+              <div>
+                <div class="font-bold text-slate-100">Mountain Weather</div>
+                <div class="text-xs text-slate-400">Live Elevation Forecast</div>
+              </div>
+            </div>
+            <select class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-3 py-2 text-slate-200">
+              <option>Matterhorn</option>
+              <option>Mont Blanc</option>
+              <option>Mount Rainier</option>
+              <option>Denali</option>
+            </select>
+          </div>
+
+          <div class="rounded-xl bg-slate-900/80 border border-slate-800 p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="text-3xl font-black">19°C</div>
+                <div class="text-sm text-slate-400">Matterhorn</div>
+              </div>
+              <div class="text-3xl text-emerald-400">
+                <i class="fa-solid fa-cloud-sun"></i>
+              </div>
+            </div>
+            <div class="mt-4 grid grid-cols-3 gap-3 text-center text-sm text-slate-300">
+              <div class="bg-slate-800 rounded-xl p-3"><div class="text-slate-400">Wind</div><div class="font-bold">18 km/h</div></div>
+              <div class="bg-slate-800 rounded-xl p-3"><div class="text-slate-400">Snow</div><div class="font-bold">12%</div></div>
+              <div class="bg-slate-800 rounded-xl p-3"><div class="text-slate-400">Freeze</div><div class="font-bold">-2°C</div></div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-start gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-0.5"></i>
+            <div>
+              <div class="font-bold mb-1">Alpine Advisory</div>
+              <p class="text-slate-300">Moderate wind speed above 3,500m. Carry proper windproof shell and traction gear.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-black">Featured Summits</h2>
+              <p class="text-slate-400 text-sm">Top rated peaks for your next expedition</p>
+            </div>
+            <button class="text-emerald-400 font-semibold">View All</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="relative h-44 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                <div class="absolute top-3 right-3 px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-400 text-xs font-bold">4,478 m</div>
+              </div>
+              <div class="p-5">
+                <div class="text-xs uppercase tracking-[0.16em] text-slate-400">Alps • Switzerland</div>
+                <div class="mt-2 text-xl font-bold">Matterhorn</div>
+                <div class="mt-3 flex items-center justify-between text-xs text-slate-300">
+                  <span><i class="fa-solid fa-gauge-high text-emerald-400 mr-1"></i>Technical</span>
+                  <span><i class="fa-solid fa-clock text-blue-400 mr-1"></i>10–12 hrs</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl overflow-hidden">
+              <div class="relative h-44 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+                <div class="absolute top-3 right-3 px-2 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-emerald-400 text-xs font-bold">4,392 m</div>
+              </div>
+              <div class="p-5">
+                <div class="text-xs uppercase tracking-[0.16em] text-slate-400">Cascades • USA</div>
+                <div class="mt-2 text-xl font-bold">Mount Rainier</div>
+                <div class="mt-3 flex items-center justify-between text-xs text-slate-300">
+                  <span><i class="fa-solid fa-gauge-high text-emerald-400 mr-1"></i>Strenuous</span>
+                  <span><i class="fa-solid fa-clock text-blue-400 mr-1"></i>14–16 hrs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-cube"></i></div>
+          <h3 class="text-lg font-bold mb-2">3D Terrain View</h3>
+          <p class="text-slate-400 text-sm">Visualize ridgelines, terrain shape, and elevations in immersive 3D layers.</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-route"></i></div>
+          <h3 class="text-lg font-bold mb-2">Route Planner</h3>
+          <p class="text-slate-400 text-sm">Map trail routes and view distance, grade, and climbing gain in real time.</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h3 class="text-lg font-bold mb-2">Gear Checklist</h3>
+          <p class="text-slate-400 text-sm">Prepare for alpine conditions with practical, layered packing lists.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-directory" class="tab-panel hidden space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Peak Explorer Directory</h1>
+          <p class="text-slate-400 text-sm">Filter, search, and inspect world-renowned peaks.</p>
+        </div>
+        <div class="text-xs text-slate-400">Showing 6 Peaks</div>
+      </div>
+
+      <div class="glass rounded-2xl p-5 border border-slate-800">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Search Name / Region</label>
+            <input type="text" value="" placeholder="e.g. Alps, Rainier..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Difficulty</label>
+            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option>All Difficulties</option>
+              <option>Moderate</option>
+              <option>Strenuous</option>
+              <option>Technical</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Min Altitude</label>
+            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option>Any Elevation</option>
+              <option>3,000m +</option>
+              <option>4,000m +</option>
+              <option>5,000m +</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Mountain Range</label>
+            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option>All Ranges</option>
+              <option>Alps</option>
+              <option>Cascades</option>
+              <option>Alaska Range</option>
+              <option>Andes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Alps</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">Matterhorn</h3>
+              <span class="text-emerald-400 font-black text-sm">4,478 m</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">Iconic pyramidal peak on the border between Switzerland and Italy.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Cascades</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">Mount Rainier</h3>
+              <span class="text-emerald-400 font-black text-sm">4,392 m</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">A glaciated volcano with demanding climbs and dramatic snow fields.</p>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Alps</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">Mont Blanc</h3>
+              <span class="text-emerald-400 font-black text-sm">4,809 m</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">Western Europe's highest summit with classic glacier routes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-route" class="tab-panel hidden space-y-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Interactive Trail & Elevation Grapher</h1>
+          <p class="text-slate-400 text-sm">Map your route and view gain, distance, and steepness in real time.</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="px-3.5 py-2 rounded-lg bg-slate-800 border border-slate-700 text-xs font-semibold">Clear Trail</button>
+          <button class="px-3.5 py-2 rounded-lg bg-emerald-500 text-slate-950 text-xs font-bold">Sample Route</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 glass rounded-2xl p-4 border border-slate-800">
+          <div class="relative w-full h-[360px] rounded-xl overflow-hidden bg-slate-900 border border-slate-800">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#1e293b_0%,#0f172a_45%,#020617_100%)]"></div>
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-52 rounded-full border border-emerald-500/30"></div>
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-blue-500/20"></div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="glass rounded-2xl p-5 border border-slate-800">
+            <h3 class="text-lg font-bold mb-4">Route Metrics</h3>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+                <span class="text-slate-400">Distance</span>
+                <span class="font-black">14.6 km</span>
+              </div>
+              <div class="flex items-center justify-between rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+                <span class="text-slate-400">Elevation Gain</span>
+                <span class="font-black">+1,250 m</span>
+              </div>
+              <div class="flex items-center justify-between rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+                <span class="text-slate-400">Est. Time</span>
+                <span class="font-black">6h 20m</span>
+              </div>
+              <div class="flex items-center justify-between rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+                <span class="text-slate-400">Grade</span>
+                <span class="font-black">18%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-gear" class="tab-panel hidden space-y-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Expedition Gear & Packing Checklist</h1>
+          <p class="text-slate-400 text-sm">Prepared for alpine conditions and multi-day adventures.</p>
+        </div>
+        <button class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold">Add Custom Gear</button>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-slate-800">
+        <div class="flex items-center justify-between text-sm mb-3">
+          <span class="font-bold">Pack Readiness</span>
+          <span class="text-emerald-400 font-bold">72% Packed</span>
+        </div>
+        <div class="w-full bg-slate-900 rounded-full h-3">
+          <div class="h-full w-[72%] bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center"><i class="fa-solid fa-ice-cream"></i></div>
+            <h3 class="font-bold text-lg">Alpine Technical</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• Glacier ice axe</li>
+            <li>• Crampons</li>
+            <li>• Climbing harness</li>
+            <li>• Alpine helmet</li>
+          </ul>
+        </div>
+
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center"><i class="fa-solid fa-shirt"></i></div>
+            <h3 class="font-bold text-lg">Clothing & Layers</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• Hardshell jacket</li>
+            <li>• Thermal base layers</li>
+            <li>• Down parka</li>
+            <li>• Waterproof boots</li>
+          </ul>
+        </div>
+
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center"><i class="fa-solid fa-kit-medical"></i></div>
+            <h3 class="font-bold text-lg">Safety & Shelter</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• GPS tracker</li>
+            <li>• First aid kit</li>
+            <li>• Headlamp + spare battery</li>
+            <li>• Emergency bivy</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-log" class="tab-panel hidden space-y-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Summit Logbook & Personal Tracker</h1>
+          <p class="text-slate-400 text-sm">Record bagged peaks and trail memories.</p>
+        </div>
+        <button class="px-4 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold">Log New Summit</button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl"><i class="fa-solid fa-flag"></i></div>
+            <div>
+              <div class="text-2xl font-black">3</div>
+              <div class="text-xs text-slate-400">Peaks Bagged</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl"><i class="fa-solid fa-chart-line"></i></div>
+            <div>
+              <div class="text-2xl font-black">7,420 m</div>
+              <div class="text-xs text-slate-400">Total Gain</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-5 border border-slate-800">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl"><i class="fa-solid fa-stopwatch"></i></div>
+            <div>
+              <div class="text-2xl font-black">34.5 hrs</div>
+              <div class="text-xs text-slate-400">Trail Time</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl border border-slate-800 overflow-hidden">
+        <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+          <span class="font-bold text-lg">Recent Peak Logs</span>
+          <span class="text-xs text-slate-400">Stored locally</span>
+        </div>
+        <div class="divide-y divide-slate-800/60">
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-bold">Mount Rainier</div>
+              <div class="text-xs text-slate-400">2025-07-14</div>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Clear skies, started alpine climb at 01:00 AM from Camp Muir.</p>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-bold">Mount Adams</div>
+              <div class="text-xs text-slate-400">2025-08-20</div>
+            </div>
+            <p class="mt-2 text-sm text-slate-300">Glissading down the snow chutes was fantastic.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-950 py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-3">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-mountain text-emerald-400"></i>
+        <span class="font-bold text-slate-200">Hills & Peaks Engine</span>
+        <span>— Outdoor Explorer Companion</span>
+      </div>
+      <p>Verify official weather and safety advisories before each expedition.</p>
+    </div>
+  </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.nav-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+        tabs.forEach(btn => {
+          btn.classList.remove('text-emerald-400', 'bg-slate-800/80');
+          btn.classList.add('text-slate-300');
+        });
+        button.classList.add('text-emerald-400', 'bg-slate-800/80');
+        button.classList.remove('text-slate-300');
+
+        panels.forEach(panel => {
+          panel.classList.add('hidden');
+        });
+        document.getElementById('tab-' + target).classList.remove('hidden');
+      });
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      if (document.documentElement.classList.contains('dark')) {
+        icon.className = 'fa-solid fa-moon';
+      } else {
+        icon.className = 'fa-solid fa-sun';
+      }
+    });
+  </script>
 </body>
 </html>
