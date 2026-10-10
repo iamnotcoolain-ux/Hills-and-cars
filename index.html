@@ -92,7 +92,7 @@
           </p>
 
           <div class="pt-4 flex flex-col sm:flex-row gap-3 max-w-xl">
-            <input type="text" placeholder="Search Matterhorn, Mont Blanc, Denali..." class="flex-1 px-4 py-3.5 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:border-emerald-500" />
+            <input type="text" placeholder="Search Matterhorn, Mont Blanc, Denali..." class="flex-1 px-4 py-3.5 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-100 placeholder:text-slate-400" />
             <button class="px-6 py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-600 transition">Find Peaks</button>
           </div>
 
@@ -235,92 +235,93 @@
           <h1 class="text-3xl font-black">Peak Explorer Directory</h1>
           <p class="text-slate-400 text-sm">Filter, search, and inspect world-renowned peaks.</p>
         </div>
-        <div class="text-xs text-slate-400">Showing 6 Peaks</div>
+        <div class="text-xs text-slate-400">Showing <span id="peakCount">0</span> Peaks</div>
       </div>
 
       <div class="glass rounded-2xl p-5 border border-slate-800">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1">Search Name / Region</label>
-            <input type="text" value="" placeholder="e.g. Alps, Rainier..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+            <input id="searchInput" type="text" value="" placeholder="e.g. Alps, Rainier..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-400 mb-1">Difficulty</label>
-            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
-              <option>All Difficulties</option>
+            <select id="difficultyFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="All">All Difficulties</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Strenuous">Strenuous</option>
+              <option value="Technical">Technical</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Min Altitude</label>
+            <select id="minElevationFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="0">Any Elevation</option>
+              <option value="3000">3,000m +</option>
+              <option value="4000">4,000m +</option>
+              <option value="5000">5,000m +</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Mountain Range</label>
+            <select id="rangeFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="All">All Ranges</option>
+              <option value="Alps">Alps</option>
+              <option value="Cascades">Cascades</option>
+              <option value="Alaska Range">Alaska Range</option>
+              <option value="Andes">Andes</option>
+              <option value="Himalayas">Himalayas</option>
+              <option value="Rockies">Rockies</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-5 border border-slate-800">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-xl font-black">Add a Peak</h2>
+            <p class="text-sm text-slate-400">Create a custom mountain entry for your own list.</p>
+          </div>
+        </div>
+
+        <form id="addPeakForm" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Peak Name</label>
+            <input name="name" type="text" required placeholder="K2" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Range</label>
+            <input name="range" type="text" required placeholder="Karakoram" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Elevation (m)</label>
+            <input name="elevation" type="number" required min="0" placeholder="8611" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Difficulty</label>
+            <select name="difficulty" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
               <option>Moderate</option>
               <option>Strenuous</option>
               <option>Technical</option>
             </select>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Min Altitude</label>
-            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
-              <option>Any Elevation</option>
-              <option>3,000m +</option>
-              <option>4,000m +</option>
-              <option>5,000m +</option>
-            </select>
+          <div class="md:col-span-2 xl:col-span-2">
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Image URL</label>
+            <input name="image" type="url" placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 mb-1">Mountain Range</label>
-            <select class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
-              <option>All Ranges</option>
-              <option>Alps</option>
-              <option>Cascades</option>
-              <option>Alaska Range</option>
-              <option>Andes</option>
-            </select>
+          <div class="md:col-span-2 xl:col-span-3">
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Description</label>
+            <textarea name="description" rows="2" placeholder="Short overview of the mountain..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100"></textarea>
           </div>
-        </div>
+
+          <div class="md:col-span-2 xl:col-span-3 flex justify-end">
+            <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-600 transition">Add Mountain</button>
+          </div>
+        </form>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
-          <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Alps</span>
-          </div>
-          <div class="p-5">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold">Matterhorn</h3>
-              <span class="text-emerald-400 font-black text-sm">4,478 m</span>
-            </div>
-            <p class="mt-2 text-sm text-slate-400">Iconic pyramidal peak on the border between Switzerland and Italy.</p>
-          </div>
-        </div>
-
-        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
-          <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Cascades</span>
-          </div>
-          <div class="p-5">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold">Mount Rainier</h3>
-              <span class="text-emerald-400 font-black text-sm">4,392 m</span>
-            </div>
-            <p class="mt-2 text-sm text-slate-400">A glaciated volcano with demanding climbs and dramatic snow fields.</p>
-          </div>
-        </div>
-
-        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
-          <div class="relative h-48 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover" />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">Alps</span>
-          </div>
-          <div class="p-5">
-            <div class="flex items-center justify-between">
-              <h3 class="text-xl font-bold">Mont Blanc</h3>
-              <span class="text-emerald-400 font-black text-sm">4,809 m</span>
-            </div>
-            <p class="mt-2 text-sm text-slate-400">Western Europe's highest summit with classic glacier routes.</p>
-          </div>
-        </div>
-      </div>
+      <div id="peakGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
     <section id="tab-route" class="tab-panel hidden space-y-8">
@@ -509,6 +510,179 @@
   </footer>
 
   <script>
+    const defaultPeaks = [
+      {
+        name: 'Matterhorn',
+        range: 'Alps',
+        elevation: 4478,
+        difficulty: 'Technical',
+        image: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?auto=format&fit=crop&w=800&q=80',
+        description: 'Iconic pyramidal peak on the border between Switzerland and Italy.'
+      },
+      {
+        name: 'Mount Rainier',
+        range: 'Cascades',
+        elevation: 4392,
+        difficulty: 'Strenuous',
+        image: 'https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&w=800&q=80',
+        description: 'A glaciated volcano with demanding climbs and dramatic snow fields.'
+      },
+      {
+        name: 'Mont Blanc',
+        range: 'Alps',
+        elevation: 4809,
+        difficulty: 'Technical',
+        image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+        description: 'Western Europe’s highest summit with classic glacier routes.'
+      },
+      {
+        name: 'Denali',
+        range: 'Alaska Range',
+        elevation: 6190,
+        difficulty: 'Technical',
+        image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
+        description: 'The highest peak in North America, known for extreme cold and long expeditions.'
+      },
+      {
+        name: 'Aconcagua',
+        range: 'Andes',
+        elevation: 6961,
+        difficulty: 'Technical',
+        image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+        description: 'The highest mountain outside Asia and a true high-altitude challenge.'
+      },
+      {
+        name: 'K2',
+        range: 'Karakoram',
+        elevation: 8611,
+        difficulty: 'Technical',
+        image: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80',
+        description: 'A legendary summit with brutal terrain and stunning alpine exposure.'
+      }
+    ];
+
+    const STORAGE_KEY = 'hills-and-peaks-custom-mountains';
+    let peaks = [];
+
+    function loadPeaks() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (Array.isArray(saved) && saved.length) {
+          peaks = saved;
+          return;
+        }
+      } catch (error) {
+        console.warn('Could not parse saved peak data:', error);
+      }
+      peaks = [...defaultPeaks];
+    }
+
+    function savePeaks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(peaks));
+    }
+
+    function formatElevation(value) {
+      return new Intl.NumberFormat('en-US').format(value) + ' m';
+    }
+
+    function renderPeaks() {
+      const searchInput = document.getElementById('searchInput');
+      const difficultyFilter = document.getElementById('difficultyFilter');
+      const minElevationFilter = document.getElementById('minElevationFilter');
+      const rangeFilter = document.getElementById('rangeFilter');
+      const peakGrid = document.getElementById('peakGrid');
+      const peakCount = document.getElementById('peakCount');
+
+      const query = (searchInput?.value || '').toLowerCase().trim();
+      const difficulty = difficultyFilter?.value || 'All';
+      const minElevation = Number(minElevationFilter?.value || 0);
+      const range = rangeFilter?.value || 'All';
+
+      const filteredPeaks = peaks.filter((peak) => {
+        const matchesQuery = !query ||
+          peak.name.toLowerCase().includes(query) ||
+          peak.range.toLowerCase().includes(query) ||
+          (peak.description || '').toLowerCase().includes(query);
+
+        const matchesDifficulty = difficulty === 'All' || peak.difficulty === difficulty;
+        const matchesElevation = Number(peak.elevation || 0) >= minElevation;
+        const matchesRange = range === 'All' || peak.range === range;
+
+        return matchesQuery && matchesDifficulty && matchesElevation && matchesRange;
+      });
+
+      peakCount.textContent = filteredPeaks.length;
+
+      if (!filteredPeaks.length) {
+        peakGrid.innerHTML = `
+          <div class="glass rounded-2xl p-6 border border-slate-800 col-span-full text-center">
+            <div class="text-lg font-bold">No peaks found</div>
+            <p class="text-sm text-slate-400 mt-2">Try a different filter or add a new mountain.</p>
+          </div>
+        `;
+        return;
+      }
+
+      peakGrid.innerHTML = filteredPeaks.map((peak) => `
+        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+          <div class="relative h-48 overflow-hidden">
+            <img src="${peak.image || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">${peak.range}</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">${peak.name}</h3>
+              <span class="text-emerald-400 font-black text-sm">${formatElevation(peak.elevation)}</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">${peak.description || 'A remarkable mountain to explore.'}</p>
+            <div class="mt-4 flex items-center justify-between text-xs text-slate-300">
+              <span><i class="fa-solid fa-gauge-high text-emerald-400 mr-1"></i>${peak.difficulty}</span>
+              <span><i class="fa-solid fa-mountain text-blue-400 mr-1"></i>${peak.range}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadPeaks();
+    renderPeaks();
+
+    const searchInput = document.getElementById('searchInput');
+    const difficultyFilter = document.getElementById('difficultyFilter');
+    const minElevationFilter = document.getElementById('minElevationFilter');
+    const rangeFilter = document.getElementById('rangeFilter');
+
+    [searchInput, difficultyFilter, minElevationFilter, rangeFilter].forEach((element) => {
+      element?.addEventListener('input', renderPeaks);
+      element?.addEventListener('change', renderPeaks);
+    });
+
+    document.getElementById('addPeakForm')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      const newPeak = {
+        name: (formData.get('name') || '').toString().trim(),
+        range: (formData.get('range') || '').toString().trim(),
+        elevation: Number(formData.get('elevation') || 0),
+        difficulty: (formData.get('difficulty') || 'Moderate').toString().trim(),
+        image: (formData.get('image') || '').toString().trim() || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+        description: (formData.get('description') || '').toString().trim() || 'Newly added summit for your exploration list.'
+      };
+
+      if (!newPeak.name || !newPeak.range || !newPeak.elevation) {
+        return;
+      }
+
+      peaks.unshift(newPeak);
+      savePeaks();
+      form.reset();
+      renderPeaks();
+    });
+
     const tabs = document.querySelectorAll('.nav-btn');
     const panels = document.querySelectorAll('.tab-panel');
 
