@@ -1,3 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hills & Peaks</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669'
+            },
+            slate: {
+              800: '#1e293b',
+              900: '#0f172a',
+              950: '#020617'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: Arial, sans-serif; }
+    .glass {
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tab-hidden { display: none !important; }
+    .difficulty-badge {
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .difficulty-moderate {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+    .difficulty-strenuous {
+      background: rgba(251, 146, 60, 0.1);
+      color: #fb923c;
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+    .difficulty-technical {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 text-xl font-black">
+          <i class="fa-solid fa-mountain"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-black tracking-wide uppercase">Hills<span class="text-emerald-400">&</span>Peaks</div>
+          <div class="text-[10px] uppercase tracking-[0.22em] text-slate-400">Alpine & Trail Guide</div>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-2">
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-emerald-400 bg-slate-800/80" data-tab="home">Home</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="mountains">Mountains Table</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="directory">Peaks</button>
+        <button class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-emerald-400" data-tab="route">Route Planner</button>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <section id="tab-home" class="tab-panel space-y-10">
+      <div class="relative rounded-3xl overflow-hidden border border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 p-8 sm:p-12 lg:p-16">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div class="relative z-10 max-w-3xl space-y-6">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-[0.16em]">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Summit Adventure Engine</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight">
+            Conquer Heights.<br />
+            <span class="bg-gradient-to-r from-emerald-400 to-blue-500 bg-clip-text text-transparent">Log Every Elevation.</span>
+          </h1>
+
+          <p class="max-w-2xl text-slate-300 text-lg leading-relaxed">
+            Your ultimate companion for mountain exploration, peak bagging, route planning, safety checks, and expedition gear tracking.
+          </p>
+
+          <div class="pt-4 flex flex-col sm:flex-row gap-3 max-w-xl">
+            <input type="text" placeholder="Search Matterhorn, Mont Blanc, Denali..." class="flex-1 px-4 py-3.5 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-100 placeholder:text-slate-400" />
+            <button class="px-6 py-3.5 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-600 transition">Find Peaks</button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800">
+            <div>
+              <div class="text-2xl font-black">12,450+</div>
+              <div class="text-xs text-slate-400">Mapped Peaks</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-emerald-400">4,820m</div>
+              <div class="text-xs text-slate-400">Max Elevation</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black">100%</div>
+              <div class="text-xs text-slate-400">Interactive Profiles</div>
+            </div>
+            <div>
+              <div class="text-2xl font-black text-emerald-400">24/7</div>
+              <div class="text-xs text-slate-400">Live Conditions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-cube"></i></div>
+          <h3 class="text-lg font-bold mb-2">Mountains Directory</h3>
+          <p class="text-slate-400 text-sm">Browse all mountains with difficulty levels, heights, and locations.</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-route"></i></div>
+          <h3 class="text-lg font-bold mb-2">Route Planner</h3>
+          <p class="text-slate-400 text-sm">Map trail routes and view distance, grade, and climbing gain in real time.</p>
+        </div>
+
+        <div class="glass rounded-2xl p-6 hover:border-emerald-500/50 transition border border-slate-800">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-clipboard-check"></i></div>
+          <h3 class="text-lg font-bold mb-2">Gear Checklist</h3>
+          <p class="text-slate-400 text-sm">Prepare for alpine conditions with practical, layered packing lists.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-mountains" class="tab-panel hidden space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">All Mountains Directory</h1>
+          <p class="text-slate-400 text-sm">Browse all peaks with difficulty levels, elevations, and locations</p>
+        </div>
+        <div class="text-xs text-slate-400">Total: <span id="mountainCount" class="font-bold text-emerald-400">0</span> Mountains</div>
+      </div>
+
+      <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-slate-800 bg-slate-900/40">
+                <th class="px-6 py-4 text-left text-sm font-bold text-slate-200">Mountain Name</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-slate-200">Location / Range</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-slate-200">Elevation</th>
+                <th class="px-6 py-4 text-left text-sm font-bold text-slate-200">Difficulty</th>
+              </tr>
+            </thead>
+            <tbody id="mountainsTableBody" class="divide-y divide-slate-800/60">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-directory" class="tab-panel hidden space-y-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Peak Explorer Directory</h1>
+          <p class="text-slate-400 text-sm">Filter, search, and inspect world-renowned peaks.</p>
+        </div>
+        <div class="text-xs text-slate-400">Showing <span id="peakCount">0</span> Peaks</div>
+      </div>
+
+      <div class="glass rounded-2xl p-5 border border-slate-800">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Search Name / Region</label>
+            <input id="searchInput" type="text" value="" placeholder="e.g. Alps, Rainier..." class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Difficulty</label>
+            <select id="difficultyFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="All">All Difficulties</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Strenuous">Strenuous</option>
+              <option value="Technical">Technical</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Min Altitude</label>
+            <select id="minElevationFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="0">Any Elevation</option>
+              <option value="3000">3,000m +</option>
+              <option value="4000">4,000m +</option>
+              <option value="5000">5,000m +</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Mountain Range</label>
+            <select id="rangeFilter" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100">
+              <option value="All">All Ranges</option>
+              <option value="Alps">Alps</option>
+              <option value="Cascades">Cascades</option>
+              <option value="Alaska Range">Alaska Range</option>
+              <option value="Andes">Andes</option>
+              <option value="Himalayas">Himalayas</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div id="peakGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="tab-route" class="tab-panel hidden space-y-8">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black">Interactive Trail & Elevation Grapher</h1>
+          <p class="text-slate-400 text-sm">Map your route and view gain, distance, and steepness in real time.</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="px-3.5 py-2 rounded-lg bg-slate-800 border border-slate-700 text-xs font-semibold">Clear Trail</button>
+          <button class="px-3.5 py-2 rounded-lg bg-emerald-500 text-slate-950 text-xs font-bold">Sample Route</button>
+        </div>
+      </div>
+
+      <div class="glass rounded-2xl p-6 border border-slate-800">
+        <p class="text-slate-400">Coming soon: Interactive route planner with elevation profiles.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-950 py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400 gap-3">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-mountain text-emerald-400"></i>
+        <span class="font-bold text-slate-200">Hills & Peaks Engine</span>
+        <span>— Outdoor Explorer Companion</span>
+      </div>
+      <p>Verify official weather and safety advisories before each expedition.</p>
+    </div>
+  </footer>
+
+  <script>
     const defaultPeaks = [
       {
         name: 'Matterhorn',
@@ -21,7 +286,7 @@
         elevation: 4809,
         difficulty: 'Technical',
         image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
-        description: 'Western Europe’s highest summit with classic glacier routes.'
+        description: 'Western Europe\'s highest summit with classic glacier routes.'
       },
       {
         name: 'Denali',
@@ -53,7 +318,7 @@
         elevation: 5642,
         difficulty: 'Moderate',
         image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80',
-        description: 'Europe’s highest peak, offering snow travel, glacier terrain, and broad ridgelines.'
+        description: 'Europe\'s highest peak, offering snow travel, glacier terrain, and broad ridgelines.'
       },
       {
         name: 'Mount Fitz Roy',
@@ -62,14 +327,6 @@
         difficulty: 'Technical',
         image: 'https://images.unsplash.com/photo-1527004013197-933c4bb611b3?auto=format&fit=crop&w=800&q=80',
         description: 'A jagged granite icon of Patagonia with fierce winds and technical climbing.'
-      },
-      {
-        name: 'Olympus Mons',
-        range: 'Mars',
-        elevation: 21300,
-        difficulty: 'Technical',
-        image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80',
-        description: 'A giant volcano outside Earth, famous for its enormous shield and vast caldera.'
       },
       {
         name: 'Kilimanjaro',
@@ -93,6 +350,168 @@
         elevation: 8848,
         difficulty: 'Technical',
         image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
-        description: 'The world’s highest summit, demanding nutrition planning, acclimatization, and endurance.'
+        description: 'The world\'s highest summit, demanding nutrition planning, acclimatization, and endurance.'
+      },
+      {
+        name: 'Mont Ventoux',
+        range: 'Alps',
+        elevation: 1912,
+        difficulty: 'Moderate',
+        image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+        description: 'A legendary French climb with breathtaking views and challenging ridges.'
       }
     ];
+
+    const STORAGE_KEY = 'hills-and-peaks-custom-mountains';
+    let peaks = [];
+
+    function loadPeaks() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (Array.isArray(saved) && saved.length) {
+          peaks = saved;
+          return;
+        }
+      } catch (error) {
+        console.warn('Could not parse saved peak data:', error);
+      }
+      peaks = [...defaultPeaks];
+    }
+
+    function formatElevation(value) {
+      return new Intl.NumberFormat('en-US').format(value) + ' m';
+    }
+
+    function getDifficultyClass(difficulty) {
+      const base = 'difficulty-badge';
+      if (difficulty === 'Moderate') return base + ' difficulty-moderate';
+      if (difficulty === 'Strenuous') return base + ' difficulty-strenuous';
+      return base + ' difficulty-technical';
+    }
+
+    function renderMountainsTable() {
+      const tbody = document.getElementById('mountainsTableBody');
+      const countElement = document.getElementById('mountainCount');
+      if (!tbody) return;
+
+      countElement.textContent = peaks.length;
+
+      tbody.innerHTML = peaks.map((peak) => `
+        <tr class="hover:bg-slate-800/30 transition">
+          <td class="px-6 py-4 text-sm font-semibold text-slate-100">${peak.name}</td>
+          <td class="px-6 py-4 text-sm text-slate-300">${peak.range}</td>
+          <td class="px-6 py-4 text-sm text-emerald-400 font-bold">${formatElevation(peak.elevation)}</td>
+          <td class="px-6 py-4 text-sm">
+            <span class="${getDifficultyClass(peak.difficulty)}">${peak.difficulty}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderPeaks() {
+      const searchInput = document.getElementById('searchInput');
+      const difficultyFilter = document.getElementById('difficultyFilter');
+      const minElevationFilter = document.getElementById('minElevationFilter');
+      const rangeFilter = document.getElementById('rangeFilter');
+      const peakGrid = document.getElementById('peakGrid');
+      const peakCount = document.getElementById('peakCount');
+
+      const query = (searchInput?.value || '').toLowerCase().trim();
+      const difficulty = difficultyFilter?.value || 'All';
+      const minElevation = Number(minElevationFilter?.value || 0);
+      const range = rangeFilter?.value || 'All';
+
+      const filteredPeaks = peaks.filter((peak) => {
+        const matchesQuery = !query ||
+          peak.name.toLowerCase().includes(query) ||
+          peak.range.toLowerCase().includes(query) ||
+          (peak.description || '').toLowerCase().includes(query);
+
+        const matchesDifficulty = difficulty === 'All' || peak.difficulty === difficulty;
+        const matchesElevation = Number(peak.elevation || 0) >= minElevation;
+        const matchesRange = range === 'All' || peak.range === range;
+
+        return matchesQuery && matchesDifficulty && matchesElevation && matchesRange;
+      });
+
+      peakCount.textContent = filteredPeaks.length;
+
+      if (!filteredPeaks.length) {
+        peakGrid.innerHTML = `
+          <div class="glass rounded-2xl p-6 border border-slate-800 col-span-full text-center">
+            <div class="text-lg font-bold">No peaks found</div>
+            <p class="text-sm text-slate-400 mt-2">Try a different filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      peakGrid.innerHTML = filteredPeaks.map((peak) => `
+        <div class="glass rounded-2xl overflow-hidden border border-slate-800">
+          <div class="relative h-48 overflow-hidden">
+            <img src="${peak.image || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80'}" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-3 left-3 px-2 py-1 rounded-full bg-slate-900/80 text-xs font-semibold">${peak.range}</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold">${peak.name}</h3>
+              <span class="text-emerald-400 font-black text-sm">${formatElevation(peak.elevation)}</span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">${peak.description || 'A remarkable mountain to explore.'}</p>
+            <div class="mt-4 flex items-center justify-between text-xs">
+              <span class="${getDifficultyClass(peak.difficulty)}">${peak.difficulty}</span>
+              <span class="text-slate-400"><i class="fa-solid fa-mountain mr-1"></i>${peak.range}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    loadPeaks();
+    renderMountainsTable();
+    renderPeaks();
+
+    const searchInput = document.getElementById('searchInput');
+    const difficultyFilter = document.getElementById('difficultyFilter');
+    const minElevationFilter = document.getElementById('minElevationFilter');
+    const rangeFilter = document.getElementById('rangeFilter');
+
+    [searchInput, difficultyFilter, minElevationFilter, rangeFilter].forEach((element) => {
+      element?.addEventListener('input', renderPeaks);
+      element?.addEventListener('change', renderPeaks);
+    });
+
+    const tabs = document.querySelectorAll('.nav-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(button => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.tab;
+        tabs.forEach(btn => {
+          btn.classList.remove('text-emerald-400', 'bg-slate-800/80');
+          btn.classList.add('text-slate-300');
+        });
+        button.classList.add('text-emerald-400', 'bg-slate-800/80');
+        button.classList.remove('text-slate-300');
+
+        panels.forEach(panel => {
+          panel.classList.add('hidden');
+        });
+        document.getElementById('tab-' + target).classList.remove('hidden');
+      });
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      if (document.documentElement.classList.contains('dark')) {
+        icon.className = 'fa-solid fa-moon';
+      } else {
+        icon.className = 'fa-solid fa-sun';
+      }
+    });
+  </script>
+</body>
+</html>
